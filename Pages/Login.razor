@@ -1,4 +1,6 @@
 ﻿@page "/login"
+@using DicekittensBlazor.Data
+@inject AccountService AccountServ
 
 <h3>Login</h3>
 
@@ -7,7 +9,9 @@
 		<EjsTextBox Placeholder="Username" @bind-Value="@Username" CssClass="e-outline" FloatLabelType='@FloatLabelType.Auto'></EjsTextBox>
 		<EjsTextBox Placeholder="Password" @bind-Value="@Password" Type="password" CssClass="e-outline" FloatLabelType='@FloatLabelType.Auto'></EjsTextBox>
 		<EjsButton Content="Submit" @onclick="Submit" IsPrimary="true"></EjsButton>
+		<EjsButton Content="Kookie" @onclick="Kookie" IsPrimary="false"></EjsButton>
 		<p>@Notice</p>
+
 	</div>
 </div>
 
@@ -18,10 +22,17 @@
 	private string Password { get; set; } = "";
 	private string Notice { get; set; } = "";
 
-	private void Submit()
+	private async void Submit()
 	{
-		Notice = "Login with" + Username + ":" + Password;
+		Notice = "Logining with " + Username + ":" + Password;
+		
+		
+	}
 
+	private async void Kookie()
+	{
+		Notice = "Logining with " + Username + ":" + Password;
+		
 	}
 
 }

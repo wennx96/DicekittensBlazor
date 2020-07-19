@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DicekittensBlazor.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace DicekittensBlazor
 {
@@ -28,7 +30,17 @@ namespace DicekittensBlazor
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
+
+			services.AddHttpContextAccessor();
+
 			services.AddSingleton<WeatherForecastService>();
+			services.AddSingleton<AccountService>();
+
+			services.AddDbContext<AccountService>(options => 
+						options.UseSqlServer(Configuration.GetConnectionString("conn")));
+
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +61,9 @@ namespace DicekittensBlazor
 			app.UseStaticFiles();
 
 			app.UseRouting();
+
+			app.UseAuthentication();
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

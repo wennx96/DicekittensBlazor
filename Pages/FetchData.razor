@@ -2,10 +2,13 @@
 
 @using DicekittensBlazor.Data
 @inject WeatherForecastService ForecastService
+@inject AccountService AccountServ
 
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
+
+<p>Account: @(AccountServ.Users.Count())</p>
 
 @if (forecasts == null)
 {
